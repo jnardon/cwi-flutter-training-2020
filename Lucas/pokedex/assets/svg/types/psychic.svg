@@ -1,0 +1,21 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_d)">
+<rect x="10.9067" y="10.8061" width="26.8" height="26.8367" rx="13.4" fill="url(#paintPsy_linear)"/>
+</g>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M29.1972 28.3628C29.1972 28.3628 27.6202 29.6294 24.482 29.1053C22.1011 28.7076 20.8313 26.0794 20.8313 24.6667C20.8313 21.3173 23.3068 20.5551 24.9805 20.5551C26.6542 20.5551 27.746 22.1891 27.746 23.4542C27.746 24.7193 26.8524 25.8258 25.4619 25.8258C24.0713 25.8258 23.6595 24.8483 23.6595 23.9495C23.6595 23.0508 24.3856 22.7341 25.0479 22.7341C25.7101 22.7341 25.9369 23.3003 25.9369 23.7869C25.9369 24.2735 25.5599 24.4478 25.2454 24.4478C24.9309 24.4478 24.8998 24.2889 24.7794 24.1219C24.6591 23.955 24.9329 23.323 24.482 23.323C24.0311 23.323 23.947 24.0495 23.947 24.0495C23.947 24.0495 24.1114 25.4519 25.4619 25.4277C26.8123 25.4035 27.453 24.3581 27.2668 23.323C27.0806 22.288 26.0775 21.1881 24.3169 21.4103C22.5563 21.6326 21.8375 23.4139 22.1544 25.3175C22.4712 27.2212 24.7486 28.3241 26.5393 27.9273C28.3299 27.5305 30.1133 26.2324 30.1133 22.9411C30.1133 19.6499 27.2668 17.6715 23.8725 17.9976C20.4782 18.3236 18.3712 21.2951 18.5061 24.8655C18.641 28.4359 22.0242 30.3805 24.8851 30.4807C27.746 30.5809 29.4998 28.9226 29.4998 28.9226C29.4998 28.9226 29.8942 28.5704 29.7396 28.2953C29.585 28.0203 29.1972 28.3628 29.1972 28.3628Z" fill="white"/>
+<defs>
+<filter id="filter0_d" x="0.906677" y="0.806137" width="46.8" height="46.8367" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="5"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.972549 0 0 0 0 0.486275 0 0 0 0 0.478431 0 0 0 0.7 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+</filter>
+<linearGradient id="paintPsy_linear" x1="10.9067" y1="10.8061" x2="10.9067" y2="37.6429" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F66F71"/>
+<stop offset="1" stop-color="#FE9F92"/>
+</linearGradient>
+</defs>
+</svg>
