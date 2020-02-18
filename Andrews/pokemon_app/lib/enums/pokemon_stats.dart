@@ -1,0 +1,8 @@
+enum PokemonStats {
+  SPEED,
+  SPECIAL_DEFENSE,
+  SPECIAL_ATTACK,
+  DEFENSE,
+  ATTACK,
+  HP,
+}
