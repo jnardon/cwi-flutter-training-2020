@@ -5,21 +5,23 @@ extension TypesExtension on TypesEnum {
   static TypesEnum parseToType(String type) {
     switch (type) {
       case 'fire':
-        return TypesEnum.fire;
+        return TypesEnum.FIRE;
       case 'grass':
-        return TypesEnum.grass;
+        return TypesEnum.GRASS;
       case 'poison':
-        return TypesEnum.poison;
+        return TypesEnum.POISON;
       case 'flying':
-        return TypesEnum.flying;
+        return TypesEnum.FLYING;
       case 'water':
-        return TypesEnum.water;
+        return TypesEnum.WATER;
       case 'bug':
-        return TypesEnum.bug;
+        return TypesEnum.BUG;
       case 'normal':
-        return TypesEnum.normal;
+        return TypesEnum.NORMAL;
       case 'electric':
-        return TypesEnum.electric;
+        return TypesEnum.ELECTRIC;
+      case 'dark':
+        return TypesEnum.DARK;
       default:
         return null;
     }
@@ -27,45 +29,50 @@ extension TypesExtension on TypesEnum {
 
   List<Color> get colors {
     switch (this) {
-      case TypesEnum.fire:
+      case TypesEnum.FIRE:
         return [
           Color.fromRGBO(251, 155, 81, 1),
           Color.fromRGBO(251, 174, 70, 1),
         ];
-      case TypesEnum.grass:
+      case TypesEnum.GRASS:
         return [
           Color.fromRGBO(95, 188, 81, 1),
           Color.fromRGBO(90, 193, 120, 1),
         ];
-      case TypesEnum.poison:
+      case TypesEnum.POISON:
         return [
           Color.fromRGBO(168, 100, 199, 1),
           Color.fromRGBO(194, 97, 212, 1),
         ];
-      case TypesEnum.flying:
+      case TypesEnum.FLYING:
         return [
           Color.fromRGBO(144, 167, 218, 1),
           Color.fromRGBO(166, 194, 242, 1),
         ];
-      case TypesEnum.water:
+      case TypesEnum.WATER:
         return [
           Color.fromRGBO(74, 144, 221, 1),
           Color.fromRGBO(108, 189, 228, 1),
         ];
-      case TypesEnum.bug:
+      case TypesEnum.BUG:
         return [
           Color.fromRGBO(146, 188, 44, 1),
           Color.fromRGBO(175, 200, 54, 1),
         ];
-      case TypesEnum.normal:
+      case TypesEnum.NORMAL:
         return [
           Color.fromRGBO(146, 152, 164, 1),
           Color.fromRGBO(163, 164, 158, 1),
         ];
-      case TypesEnum.electric:
+      case TypesEnum.ELECTRIC:
         return [
           Color.fromRGBO(237, 213, 62, 1),
           Color.fromRGBO(251, 226, 15, 1),
+        ];
+      case TypesEnum.DARK:
+        return [
+          Color.fromRGBO(89, 87, 97, 1),
+          Color.fromRGBO(110, 117, 135, 1),
         ];
       default:
         return null;

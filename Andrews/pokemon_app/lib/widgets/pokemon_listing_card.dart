@@ -18,6 +18,16 @@ class PokemonListingCard extends StatelessWidget {
     @required this.onpressed,
   });
 
+  String _getPokemonNumberFormated() {
+    String number = this.number.toString();
+
+    while (number.length < 3) {
+      number = '0$number';
+    }
+
+    return '#$number';
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -29,10 +39,13 @@ class PokemonListingCard extends StatelessWidget {
             color: Colors.transparent,
             shape: BoxShape.circle,
           ),
-          child: Image.network(this.imageUrl),
+          child: Hero(
+            tag: this.id,
+            child: Image.network(this.imageUrl),
+          ),
         ),
         title: Text(this.name),
-        subtitle: Text(this.number.toString()),
+        subtitle: Text(_getPokemonNumberFormated()),
         trailing: Container(
           width: 104,
           child: Row(

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:pokemon_app/enums/types_etension.dart';
 import 'package:pokemon_app/helpers/string_helper.dart';
@@ -20,8 +18,10 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
 
   bool _isInit = true;
   bool _isLoading = false;
+  String _nameFromRoute;
   List _typesFromRoute;
-  String _id;
+  String _idFromRoute;
+  String _imageUrlFromRoute;
   PokemonDetailModel _pokemonModel;
 
   @override
@@ -39,12 +39,14 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
 
     setState(() {
       _isLoading = true;
-      _id = data['id'];
+      _nameFromRoute = data['name'];
+      _idFromRoute = data['id'];
       _typesFromRoute = data['types'];
+      _imageUrlFromRoute = data['imageUrl'];
     });
 
     PokemonDetailModel pokemonModel =
-        await _pokemonService.getPokemonDetails(data['id']);
+        await _pokemonService.getPokemonDetails(_idFromRoute);
 
     setState(() {
       _pokemonModel = pokemonModel;
@@ -55,7 +57,7 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
   Row _buildTypesRow() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: _pokemonModel.types
+      children: _typesFromRoute
           .map((type) => Padding(
                 padding: const EdgeInsets.all(5),
                 child: PokemonTypeTag(
@@ -93,6 +95,38 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
     );
   }
 
+  Widget _buildDescriptionAndStats() {
+    return _isLoading
+        ? SizedBox(
+            height: 200,
+            child: Center(
+              child: Loader(),
+            ),
+          )
+        : Column(
+            children: <Widget>[
+              Container(
+                width: double.infinity,
+                child: Text(
+                  _pokemonModel.description,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+              _verticalSpacer(),
+              Text(
+                'STATS',
+                style: TextStyle(
+                    fontSize: 18,
+                    color: TypesExtension.parseToType(_pokemonModel.types[0])
+                        .colors[0]),
+              ),
+              _verticalSpacer(),
+              _buildStats(),
+            ],
+          );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -109,6 +143,21 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
           children: <Widget>[
             SizedBox(
               height: 150,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: Icon(
+                      Icons.keyboard_arrow_down,
+                      color: Colors.white,
+                      size: 40,
+                    ),
+                  )
+                ],
+              ),
             ),
             Expanded(
               child: Stack(
@@ -125,58 +174,41 @@ class _PokemonDetailPageState extends State<PokemonDetailPage> {
                         topRight: Radius.circular(50),
                       ),
                     ),
-                    child: _isLoading
-                        ? Center(
-                            child: Loader(),
-                          )
-                        : Padding(
-                            padding: EdgeInsets.fromLTRB(20, 60, 20, 20),
-                            child: SingleChildScrollView(
-                              child: Column(
-                                children: <Widget>[
-                                  Text(
-                                    StringHelper.capitalizeFirstLetter(
-                                        _pokemonModel.name),
-                                    style: TextStyle(
-                                        fontSize: 28,
-                                        fontWeight: FontWeight.w300),
-                                  ),
-                                  _verticalSpacer(),
-                                  _buildTypesRow(),
-                                  _verticalSpacer(),
-                                  Container(
-                                    width: double.infinity,
-                                    child: Text(
-                                      _pokemonModel.description,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(fontSize: 18),
-                                    ),
-                                  ),
-                                  _verticalSpacer(),
-                                  Text(
-                                    'STATS',
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        color: TypesExtension.parseToType(
-                                                _pokemonModel.types[0])
-                                            .colors[0]),
-                                  ),
-                                  _verticalSpacer(),
-                                  _buildStats(),
-                                ],
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(20, 60, 20, 20),
+                      child: SingleChildScrollView(
+                        child: SizedBox(
+                          height: MediaQuery.of(context).size.height,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Text(
+                                StringHelper.capitalizeFirstLetter(
+                                    _nameFromRoute),
+                                style: TextStyle(
+                                    fontSize: 28, fontWeight: FontWeight.w300),
                               ),
-                            ),
+                              _verticalSpacer(),
+                              _buildTypesRow(),
+                              _verticalSpacer(),
+                              _buildDescriptionAndStats(),
+                            ],
                           ),
+                        ),
+                      ),
+                    ),
                   ),
-                  if (!_isLoading)
-                    Positioned(
-                      top: -80,
+                  Positioned(
+                    top: -80,
+                    child: Hero(
+                      tag: _idFromRoute,
                       child: Image.network(
-                        _pokemonModel.imageUrl,
+                        _imageUrlFromRoute,
                         height: 110,
                         width: 110,
                       ),
                     ),
+                  ),
                 ],
               ),
             )

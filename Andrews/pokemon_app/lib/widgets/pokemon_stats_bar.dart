@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gradient_widgets/gradient_widgets.dart';
 import 'package:pokemon_app/enums/pokemon_stats.dart';
 import 'package:pokemon_app/enums/pokemon_stats_extension.dart';
 
@@ -40,13 +39,16 @@ class PokemonStatsBar extends StatelessWidget {
         Expanded(
           child: Container(
             height: 8,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(50))),
-            child: LinearProgressIndicator(
-              backgroundColor: Colors.grey[300],
-              value: this.value.toDouble() / 100.0,
-              valueColor: AlwaysStoppedAnimation<Color>(this.colors[0]),
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(50)),
+              // decoration: BoxDecoration(
+              //     color: Colors.white,
+              //     borderRadius: BorderRadius.all(Radius.circular(50))),
+              child: LinearProgressIndicator(
+                backgroundColor: Colors.grey[300],
+                value: this.value.toDouble() / 100.0,
+                valueColor: AlwaysStoppedAnimation<Color>(this.colors[0]),
+              ),
             ),
           ),
         )

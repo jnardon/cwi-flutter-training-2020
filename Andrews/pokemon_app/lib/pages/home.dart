@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pokemon_app/models/pokemon_listing_model.dart';
-import 'package:pokemon_app/pages/pokemon_detail_page.dart';
+import 'package:pokemon_app/pages/hero_transition_page.dart';
+import 'package:pokemon_app/pages/templates/app_scaffold.dart';
 import 'package:pokemon_app/widgets/loader.dart';
-import 'package:pokemon_app/widgets/main_app_bar.dart';
-import 'package:pokemon_app/widgets/main_bottom_bar.dart';
 import 'package:pokemon_app/widgets/pokemon_listing_card.dart';
 import '../services/pokemon_service.dart';
 
@@ -51,10 +50,9 @@ class _HomePageState extends State<HomePage> {
           types: _pokemons[i].types,
           onpressed: () {
             Navigator.of(context).pushNamed(
-              PokemonDetailPage.routeName,
+              HeroTransitionPage.routeName,
               arguments: {
-                'id': _pokemons[i].id,
-                'types': _pokemons[i].types,
+                'model': _pokemons[i],
               },
             );
           },
@@ -67,21 +65,16 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: MainBottomBar(),
-      body: Column(
-        children: <Widget>[
-          MainAppBar(),
-          Expanded(
-              child: _isLoading
-                  ? Center(
-                      child: Loader(),
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: _buildPokemonList(),
-                    )),
-        ],
+    return AppScaffold(
+      child: Expanded(
+        child: _isLoading
+            ? Center(
+                child: Loader(),
+              )
+            : Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: _buildPokemonList(),
+              ),
       ),
     );
   }

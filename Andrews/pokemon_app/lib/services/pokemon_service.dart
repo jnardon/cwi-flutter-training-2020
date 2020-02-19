@@ -1,14 +1,13 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:pokemon_app/enums/pokemon_stats.dart';
 import 'package:pokemon_app/enums/pokemon_stats_extension.dart';
 import 'package:pokemon_app/models/pokemon_details_model.dart';
 import 'package:pokemon_app/models/pokemon_listing_model.dart';
 import 'package:pokemon_app/models/pokemon_stats_model.dart';
+import 'package:pokemon_app/services/base_service.dart';
 
 class PokemonService {
-  final _baseUrl = 'http://localhost:3000/';
+  final _baseUrl = BaseService().baseUrl;
   final _dio = Dio();
 
   Future<List<PokemonListingModel>> getPokemons() async {

@@ -1,1 +1,11 @@
-enum TypesEnum { fire, grass, poison, flying, water, bug, normal, electric }
+enum TypesEnum {
+  FIRE,
+  GRASS,
+  POISON,
+  FLYING,
+  WATER,
+  BUG,
+  NORMAL,
+  ELECTRIC,
+  DARK,
+}
