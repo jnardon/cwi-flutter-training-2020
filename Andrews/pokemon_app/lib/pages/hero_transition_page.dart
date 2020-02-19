@@ -13,27 +13,30 @@ class _HeroTransitionPageState extends State<HeroTransitionPage> {
   bool _isInit = true;
   PokemonListingModel _pokemonListingModelFromRoute;
 
-  @override
-  void didChangeDependencies() {
-    if (_isInit) {
-      _getRouteInfo();
-
-      Future.delayed(Duration(milliseconds: 400), () {
-        Navigator.of(context)
-            .popAndPushNamed(PokemonDetailPage.routeName, arguments: {
-          'id': _pokemonListingModelFromRoute.id,
-          'name': _pokemonListingModelFromRoute.name,
-          'types': _pokemonListingModelFromRoute.types,
-          'imageUrl': _pokemonListingModelFromRoute.imageUrl,
-        });
+  void _goToNextPage() {
+    Future.delayed(Duration(milliseconds: 350), () {
+      Navigator.of(context)
+          .pushReplacementNamed(PokemonDetailPage.routeName, arguments: {
+        'id': _pokemonListingModelFromRoute.id,
+        'name': _pokemonListingModelFromRoute.name,
+        'types': _pokemonListingModelFromRoute.types,
+        'imageUrl': _pokemonListingModelFromRoute.imageUrl,
       });
+    });
+  }
+
+  @override
+  void didChangeDependencies() async {
+    if (_isInit) {
+      await _getRouteInfo();
+      _goToNextPage();
     }
 
     _isInit = false;
     super.didChangeDependencies();
   }
 
-  void _getRouteInfo() {
+  Future<void> _getRouteInfo() {
     final routeData = ModalRoute.of(context).settings.arguments
         as Map<String, PokemonListingModel>;
     setState(() {
