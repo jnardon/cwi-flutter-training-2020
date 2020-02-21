@@ -27,6 +27,11 @@ extension TypesExtension on TypesEnum {
     }
   }
 
+  String get name {
+    final index = this.toString().indexOf('.');
+    return this.toString().substring(index + 1).toLowerCase();
+  }
+
   List<Color> get colors {
     switch (this) {
       case TypesEnum.FIRE:

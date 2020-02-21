@@ -8,7 +8,7 @@ import 'package:pokemon_app/widgets/pokemon_stats_bar.dart';
 import 'package:pokemon_app/widgets/pokemon_type_tag.dart';
 
 class PokemonDetailPage extends StatefulWidget {
-  static String routeName = '/details';
+  static String routeName = '/pokemon-details';
   @override
   _PokemonDetailPageState createState() => _PokemonDetailPageState();
 }

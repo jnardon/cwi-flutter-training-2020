@@ -5,22 +5,27 @@ import 'package:pokemon_app/pages/pokemon_detail_page.dart';
 
 class HeroTransitionPage extends StatefulWidget {
   static final routeName = '/transition';
+
   @override
   _HeroTransitionPageState createState() => _HeroTransitionPageState();
 }
 
 class _HeroTransitionPageState extends State<HeroTransitionPage> {
   bool _isInit = true;
-  PokemonListingModel _pokemonListingModelFromRoute;
+  bool _isAssetImage = false;
+  String _idFromRoute;
+  String _nameFromRoute;
+  List<dynamic> _typesFromRoute;
+  String _imageUrlFromRoute;
+  String _urlToFromRoute;
 
   void _goToNextPage() {
     Future.delayed(Duration(milliseconds: 350), () {
-      Navigator.of(context)
-          .pushReplacementNamed(PokemonDetailPage.routeName, arguments: {
-        'id': _pokemonListingModelFromRoute.id,
-        'name': _pokemonListingModelFromRoute.name,
-        'types': _pokemonListingModelFromRoute.types,
-        'imageUrl': _pokemonListingModelFromRoute.imageUrl,
+      Navigator.of(context).pushReplacementNamed(_urlToFromRoute, arguments: {
+        'id': _idFromRoute,
+        'name': _nameFromRoute,
+        'types': _typesFromRoute,
+        'imageUrl': _imageUrlFromRoute,
       });
     });
   }
@@ -37,18 +42,22 @@ class _HeroTransitionPageState extends State<HeroTransitionPage> {
   }
 
   Future<void> _getRouteInfo() {
-    final routeData = ModalRoute.of(context).settings.arguments
-        as Map<String, PokemonListingModel>;
+    final routeData =
+        ModalRoute.of(context).settings.arguments as Map<String, dynamic>;
     setState(() {
-      _pokemonListingModelFromRoute = routeData['model'];
+      _idFromRoute = routeData['id'];
+      _nameFromRoute = routeData['name'];
+      _typesFromRoute = routeData['types'];
+      _imageUrlFromRoute = routeData['imageUrl'];
+      _urlToFromRoute = routeData['urlTo'];
     });
+
+    return null;
   }
 
   @override
   Widget build(BuildContext context) {
-    final colors =
-        TypesExtension.parseToType(_pokemonListingModelFromRoute.types[0])
-            .colors;
+    final colors = TypesExtension.parseToType(_typesFromRoute[0]).colors;
     return Container(
       height: double.infinity,
       width: double.infinity,
@@ -60,9 +69,8 @@ class _HeroTransitionPageState extends State<HeroTransitionPage> {
         ),
       ),
       child: Center(
-        child: Hero(
-            tag: _pokemonListingModelFromRoute.id,
-            child: Image.network(_pokemonListingModelFromRoute.imageUrl)),
+        child:
+            Hero(tag: _idFromRoute, child: Image.network(_imageUrlFromRoute)),
       ),
     );
   }
