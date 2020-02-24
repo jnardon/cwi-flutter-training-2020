@@ -5,20 +5,18 @@ import 'package:pokemon_app/enums/types_etension.dart';
 class MoveListingCard extends StatelessWidget {
   final String moveName;
   final TypesEnum type;
+  final String id;
   final Function onpressed;
 
   MoveListingCard({
     @required this.moveName,
+    @required this.id,
     @required this.type,
     @required this.onpressed,
   });
 
   @override
   Widget build(BuildContext context) {
-    String fileName = type.toString().toLowerCase();
-    int index = fileName.indexOf('.');
-    fileName = fileName.substring(index + 1);
-
     return GestureDetector(
       onTap: onpressed,
       child: ListTile(
@@ -26,6 +24,7 @@ class MoveListingCard extends StatelessWidget {
         trailing: Padding(
           padding: EdgeInsets.symmetric(horizontal: 6),
           child: Container(
+            padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
@@ -33,10 +32,13 @@ class MoveListingCard extends StatelessWidget {
                   colors: this.type.colors,
                 ),
                 borderRadius: BorderRadius.circular(50)),
-            child: ImageIcon(
-              AssetImage('assets/images/$fileName.png'),
-              color: Colors.white,
-              size: 30,
+            child: Hero(
+              tag: this.id,
+              child: ImageIcon(
+                AssetImage('assets/images/${type.name}.png'),
+                color: Colors.white,
+                size: 12,
+              ),
             ),
           ),
         ),

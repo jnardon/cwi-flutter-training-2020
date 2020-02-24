@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pokemon_app/enums/types_etension.dart';
+import 'package:pokemon_app/helpers/route_helper.dart';
 import 'package:pokemon_app/helpers/string_helper.dart';
 import 'package:pokemon_app/models/move_model.dart';
 import 'package:pokemon_app/models/pokemon_listing_model.dart';
 import 'package:pokemon_app/pages/hero_transition_page.dart';
+import 'package:pokemon_app/pages/move_detail_page.dart';
 import 'package:pokemon_app/pages/pokemon_detail_page.dart';
 import 'package:pokemon_app/services/moves_service.dart';
 import 'package:pokemon_app/widgets/loader.dart';
@@ -62,13 +65,37 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void goToCustomTransition(Widget pageTo, {RouteSettings settings}) {
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        transitionDuration: RouteHelper.transitionDuration,
+        pageBuilder: (_, __, ___) => pageTo,
+        settings: settings,
+      ),
+    );
+  }
+
   Widget _buildMovesList() {
     return ListView.separated(
       itemBuilder: (_, i) {
+        final moveId = '${_moves[i].name}$i';
         return MoveListingCard(
           moveName: StringHelper.setToDisplayPattern(_moves[i].name),
           type: _moves[i].type,
-          onpressed: () {},
+          id: moveId,
+          onpressed: () {
+            Navigator.of(context).pushNamed(
+              HeroTransitionPage.routeName,
+              arguments: {
+                'id': moveId,
+                'name': _moves[i].name,
+                'types': [_moves[i].type.name],
+                'imageUrl': 'assets/images/${_moves[i].type.name}.png',
+                'listingOption': this.listingOption,
+                'urlTo': MoveDetailPage.routeName,
+              },
+            );
+          },
         );
       },
       separatorBuilder: (_, __) => Divider(),
@@ -80,21 +107,22 @@ class _HomePageState extends State<HomePage> {
     return ListView.separated(
       itemBuilder: (_, i) {
         return PokemonListingCard(
-          name: _pokemons[i].name,
+          name: StringHelper.setToDisplayPattern(_pokemons[i].name),
           id: _pokemons[i].id,
           imageUrl: _pokemons[i].imageUrl,
           number: i + 1,
           types: _pokemons[i].types,
           onpressed: () {
-            Navigator.of(context).pushNamed(
-              HeroTransitionPage.routeName,
-              arguments: {
+            goToCustomTransition(
+              HeroTransitionPage(),
+              settings: RouteSettings(arguments: {
                 'id': _pokemons[i].id,
                 'name': _pokemons[i].name,
                 'types': _pokemons[i].types,
                 'imageUrl': _pokemons[i].imageUrl,
+                'listingOption': this.listingOption,
                 'urlTo': PokemonDetailPage.routeName,
-              },
+              }),
             );
           },
         );

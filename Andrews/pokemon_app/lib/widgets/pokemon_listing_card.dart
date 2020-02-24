@@ -56,6 +56,7 @@ class PokemonListingCard extends StatelessWidget {
                   (type) => Padding(
                     padding: EdgeInsets.symmetric(horizontal: 6),
                     child: Container(
+                      padding: EdgeInsets.all(10),
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
                               begin: Alignment.topCenter,
@@ -65,7 +66,7 @@ class PokemonListingCard extends StatelessWidget {
                       child: ImageIcon(
                         AssetImage('assets/images/$type.png'),
                         color: Colors.white,
-                        size: 30,
+                        size: 12,
                       ),
                     ),
                   ),
